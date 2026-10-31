@@ -1,0 +1,39 @@
+/* A transparent pixel fragment on the same cream surface as the header.
+   The original painted door and its animated leaf stay aligned. */
+.entry-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+#app:has(.entry-page){height:100svh;min-height:560px;display:grid;grid-template-rows:auto minmax(0,1fr);background:var(--paper-light)}
+#app:has(.entry-page)>.site-header{background:var(--paper-light);border-bottom-color:transparent}
+.entry-page{min-height:0;background:var(--paper-light);overflow:hidden;display:flex;align-items:center;justify-content:center}
+.entry-page.page-enter{animation:entry-fragment-appear .22s ease-out both}
+@keyframes entry-fragment-appear{from{opacity:0}to{opacity:1}}
+.entry-frame{width:100%;height:100%;position:relative;overflow:hidden}
+.entry-scene{position:absolute;left:50%;top:50%;height:min(calc(100% - 48px),calc((100vw - 48px) * 936 / 512));width:auto;aspect-ratio:512/936;transform:translate(-50%,-50%);isolation:isolate}
+.entry-vignette{display:block;width:100%;height:100%;max-width:none;overflow:visible;image-rendering:pixelated;user-select:none;-webkit-user-drag:none;pointer-events:none}
+.entry-portal,.entry-door{position:absolute;left:var(--door-x);top:var(--door-y);width:var(--door-w);height:var(--door-h)}
+.entry-portal{z-index:1;opacity:0;pointer-events:none;background:linear-gradient(90deg,#7f482a 0%,#db9d56 48%,#ffdea0 85%,#fff1c6 100%);box-shadow:inset 9px 0 0 #6b4126,inset 16px 0 0 #bd874b;transition:opacity .25s ease}
+.entry-door{z-index:4;display:block;padding:0;border:0;margin:0;background:none;box-shadow:none;perspective:1000px;isolation:isolate;outline-offset:8px;touch-action:manipulation}
+.entry-door:focus-visible{outline:3px solid #ffedb4}
+.entry-door-leaf{position:absolute;inset:0;display:block;transform-origin:left center;transform:rotateY(0deg);transform-style:preserve-3d;backface-visibility:hidden;transition:transform .65s cubic-bezier(.2,.68,.21,1);will-change:transform}
+.entry-door-art{display:block;width:100%;height:100%;image-rendering:pixelated;pointer-events:none;overflow:hidden}
+.entry-door-sign{position:absolute;left:9%;top:13%;width:82%;height:auto;overflow:visible;transform:rotate(-2deg);transform-origin:50% 4%;pointer-events:none}
+.entry-sign-title{font:22px Pixel,monospace;fill:#31594e;letter-spacing:-.4px}
+.entry-sign-copy{font:12px Pixel,monospace;fill:#76513b;letter-spacing:-.15px}
+.entry-door-leaf:after{content:'';position:absolute;top:0;bottom:0;right:0;width:1.3%;background:#654024;opacity:0;transition:opacity .2s}
+.entry-door:hover .entry-door-leaf,.entry-door:focus-visible .entry-door-leaf{transform:rotateY(20deg)}
+.entry-door:hover .entry-door-leaf:after,.entry-door:focus-visible .entry-door-leaf:after{opacity:1}
+.entry-floor-light{opacity:0;pointer-events:none;mix-blend-mode:screen;transition:opacity .65s ease}
+.entry-warmth{opacity:0;pointer-events:none;mix-blend-mode:screen;transition:opacity .7s ease}
+.entry-scene:has(.entry-door:hover) .entry-portal,.entry-scene:has(.entry-door:focus-visible) .entry-portal,.entry-scene:has(.door-opening) .entry-portal{opacity:1}
+.entry-scene:has(.entry-door:hover) .entry-floor-light,.entry-scene:has(.entry-door:focus-visible) .entry-floor-light{opacity:.76}
+.entry-scene:has(.entry-door:hover) .entry-warmth,.entry-scene:has(.entry-door:focus-visible) .entry-warmth{opacity:1}
+.entry-door.door-opening .entry-door-leaf{transform:rotateY(82deg);transition-duration:.64s}
+.entry-door.door-opening .entry-door-leaf:after{opacity:1}
+.entry-scene:has(.door-opening) .entry-floor-light{opacity:1;transition-duration:.6s}
+.entry-scene:has(.door-opening) .entry-warmth{opacity:1}
+@media(max-width:760px){
+ .entry-scene{height:min(calc(100% - 32px),calc((100vw - 32px) * 936 / 512));width:auto;max-width:none}
+ .entry-fragment-far{display:none}
+ .entry-door{perspective:750px}
+}
+@media(hover:none){.entry-door:not(.door-opening):hover .entry-door-leaf{transform:rotateY(0deg)}.entry-scene:has(.entry-door:hover:not(.door-opening)) .entry-floor-light,.entry-scene:has(.entry-door:hover:not(.door-opening)) .entry-warmth{opacity:0}}
+@media(prefers-reduced-motion:reduce){.entry-door-leaf,.entry-door:hover .entry-door-leaf,.entry-door:focus-visible .entry-door-leaf,.entry-door.door-opening .entry-door-leaf{transform:none}.entry-floor-light{transform:none!important;filter:none}}
